@@ -10,6 +10,8 @@ jobs:
         java: [1.8, 11]
         os: [ubuntu-latest, windows-latest, macos-latest]
     runs-on: ${{ matrix.os }}
+    env:
+      gradle_version: 5.2.1
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK ${{ matrix.java }}
@@ -22,7 +24,11 @@ jobs:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
           restore-keys: ${{ runner.os }}-gradle
-      - name: Wrap
-        run: gradle wrapper --gradle-version=5.2.1
+      - name: Wrap with specified verson
+        run: gradle wrapper --gradle-version=${{ env.gradle_version }}
+        if: ${{ env.gradle_version != '' }}
+      - name: Wrap with specified verson
+        run: gradle wrapper
+        if: ${{ env.gradle_version == '' }}
       - name: Build
         run: ./gradlew build
