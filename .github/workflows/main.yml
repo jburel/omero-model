@@ -11,7 +11,7 @@ jobs:
         os: [ubuntu-latest, windows-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     env:
-      gradle_version: ${{ secrets.gradle_version }}}
+      gradle_version: 5.2.1 # set to empty to build with most recent version of gradle
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK ${{ matrix.java }}
@@ -27,7 +27,7 @@ jobs:
       - name: Wrap with specified verson
         run: gradle wrapper --gradle-version=${{ env.gradle_version }}
         if: ${{ env.gradle_version != '' }}
-      - name: Wrap with specified verson
+      - name: Wrap without version
         run: gradle wrapper
         if: ${{ env.gradle_version == '' }}
       - name: Build
