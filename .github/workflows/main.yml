@@ -25,4 +25,4 @@ jobs:
       - name: Build with Gradle
         run: |
           gradle wrapper --gradle-version=5.2.1
-          ./gradlew publishToMavenLocal
+          ./gradlew build
