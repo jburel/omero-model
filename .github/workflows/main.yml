@@ -11,7 +11,7 @@ jobs:
         os: [ubuntu-latest, windows-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     env:
-      gradle_version: 5.2.1 # set to empty to build with most recent version of gradle
+      gradle_version: 5.4.1 # set to empty to build with most recent version of gradle
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK ${{ matrix.java }}
