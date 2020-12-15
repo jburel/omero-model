@@ -38,7 +38,7 @@ jobs:
       - name: Run commands
         run: ./gradlew ${{ env.gradle_commands }}
   upload:
-    if: contains('refs/heads/develop', github.ref)
+    if: startsWith(github.ref, 'refs/tags')
     needs: build
     runs-on: ubuntu-latest
     env:
