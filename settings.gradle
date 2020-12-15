@@ -5,6 +5,14 @@ pluginManagement {
         maven {
             url 'https://artifacts.openmicroscopy.org/artifactory/maven/'
         }
+        maven {
+            name = "ome.staging"
+            url = "https://artifacts.openmicroscopy.org/artifactory/ome.staging"
+            credentials {
+                username = System.getenv("MAVEN_USERNAME")
+                password = System.getenv("MAVEN_PASSWORD")
+            }
+        }
     }
 }
 

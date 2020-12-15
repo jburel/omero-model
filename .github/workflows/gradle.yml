@@ -37,3 +37,23 @@ jobs:
         if: ${{ env.gradle_version == '' }}
       - name: Run commands
         run: ./gradlew ${{ env.gradle_commands }}
+  upload:
+    if: contains('refs/heads/develop', github.ref)
+    needs: build
+    runs-on: ubuntu-latest
+    env:
+      server: ome-staging
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Repository
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+          server-id: ${{ env.server }}
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
+      - name: Publish package
+        run: gradle publish
+        env:
+          MAVEN_USERNAME: ${{ secrets.CI_DEPLOY_USER }}
+          MAVEN_PASSWORD: ${{ secrets.CI_DEPLOY_PASS }}
